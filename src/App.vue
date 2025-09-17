@@ -10,7 +10,6 @@ import UsersTable from './components/UsersTable.vue';
 
 <style>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
@@ -19,6 +18,7 @@ import UsersTable from './components/UsersTable.vue';
 }
 
 body {
+  font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
   background-color: #f5f7fa;

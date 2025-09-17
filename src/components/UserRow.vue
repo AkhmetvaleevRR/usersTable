@@ -25,32 +25,41 @@
 
   <el-table-column label="Логин" min-width="200">
     <template #default="scope">
-      <el-input
-        v-model="scope.row.login"
-        placeholder="Введите логин"
-        :maxlength="100"
-        :class="{ 'is-error': scope.row.errors.login }"
-        @blur="validateAndSave(scope.row)"
-      >
-      </el-input>
-      
-        <span v-if="scope.row.errors.login" class="error-text">Обязательное поле</span>
+      <el-tooltip
+        :visible="scope.row.errors.login"
+        content="Обязательное поле"
+        placement="bottom"
+        effect="customized">
+        <el-input
+          v-model="scope.row.login"
+          placeholder="Введите логин"
+          :maxlength="100"
+          :class="{ 'is-error': scope.row.errors.login }"
+          @blur="validateAndSave(scope.row)"
+        >
+        </el-input>
+      </el-tooltip>
     </template>
   </el-table-column>
 
   <el-table-column label="Пароль" min-width="200">
-    <template #default="scope">
-      <el-input
-        v-if="scope.row.type === 'Локальная'"
-        v-model="scope.row.password"
-        type="password"
-        placeholder="Введите пароль"    
-        show-password
-        :maxlength="100"
-        :class="{ 'is-error': scope.row.errors.password }"
-        @blur="validateAndSave(scope.row)"
-      />      
-      <span v-if="scope.row.errors.password" class="error-text">Обязательное поле</span>
+    <template #default="scope">      
+      <el-tooltip
+        :visible="scope.row.errors.password"
+        content="Обязательное поле"
+        placement="bottom"
+        effect="customized">
+        <el-input
+          v-if="scope.row.type === 'Локальная'"
+          v-model="scope.row.password"
+          type="password"
+          placeholder="Введите пароль"    
+          show-password
+          :maxlength="100"
+          :class="{ 'is-error': scope.row.errors.password }"
+          @blur="validateAndSave(scope.row)"
+        />      
+      </el-tooltip>
     </template>
   </el-table-column>
 
@@ -118,14 +127,26 @@ const handleDelete = (id: number) => {
 </script>
 
 <style scoped>
-
-.error-text {
-  color: #f56c6c;
-  font-size: 12px;
-  margin-top: 4px;
+.input-with-error {
+  position: relative;
+  display: flex;
+  flex-direction: column;
 }
 
 .is-error {
   --el-input-border-color: var(--el-color-danger);
+}
+</style>
+
+<style>
+.el-popper.is-customized {
+  padding: 6px 12px;
+  background-color: #f56c6c;
+  color: #fff;
+}
+
+.el-popper.is-customized .el-popper__arrow::before {
+  background-color: #f56c6c;
+  right: 0;
 }
 </style>

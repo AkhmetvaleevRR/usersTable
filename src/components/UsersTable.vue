@@ -70,9 +70,8 @@ h1 {
 
 .help-text {
   background-color: #f4f4f5;
-  padding: 12px 16px;
+  line-height: 30px;
   border-radius: 4px;
-  margin-bottom: 20px;
   color: #606266;
   font-size: 14px;
 }

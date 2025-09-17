@@ -15,7 +15,6 @@ export const useUsersStore = defineStore('users', () => {
 
   const saveUsers = () => {
     users.value.filter((user) => !user.login)
-    console.log(users.value)
     localStorage.setItem('users', JSON.stringify(users.value));
   };
 

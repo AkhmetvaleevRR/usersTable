@@ -43,14 +43,12 @@ const tableData = computed(() => {
 });
 
 const addNewRow = () => {
-  if (usersStore.users.length > 0) {
-    usersStore.addUser({
-      label: [],
-      type: 'Локальная',
-      login: null,
-      password: null
-    });
-  }
+  usersStore.addUser({
+    label: [],
+    type: 'Локальная',
+    login: null,
+    password: null
+  });
 };
 
 </script>

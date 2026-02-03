@@ -11,6 +11,7 @@
     </el-text>
 
     <el-table
+      ref="tableRef"
       :data="tableData"
       style="width: 100%"
       empty-text="Нет пользователей"
@@ -31,9 +32,11 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, nextTick, ref } from 'vue';
 import { useUsersStore } from '@/stores/store';
 import UserRow from './UserRow.vue';
+
+const tableRef = ref();
 
 const usersStore = useUsersStore();
 
@@ -49,13 +52,17 @@ const tableMaxHeight = computed(() => {
   return `calc(100vh - 250px)`;
 });
 
-const addNewRow = () => {
+const addNewRow = async () => {
   usersStore.addUser({
     label: [],
     type: 'Локальная',
     login: null,
     password: null
   });
+  
+  await nextTick()
+  
+  tableRef.value?.setScrollTop(999999)
 };
 
 </script>

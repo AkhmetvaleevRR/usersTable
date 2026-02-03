@@ -15,6 +15,7 @@
       style="width: 100%"
       empty-text="Нет пользователей"
       cell-class-name="table-cell"
+      :max-height="tableMaxHeight"
     >
       <UserRow />
     </el-table>
@@ -42,6 +43,10 @@ const tableData = computed(() => {
     label: usersStore.formatLabels(user.label),
     errors: { login: false, password: false }
   }));
+});
+
+const tableMaxHeight = computed(() => {
+  return `calc(100vh - 250px)`;
 });
 
 const addNewRow = () => {

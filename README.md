@@ -1,33 +1,39 @@
-# testUsersForm
+# Таблица пользователей
 
-This template should help get you started developing with Vue 3 in Vite.
+Веб-приложение для управления пользователями с возможностью добавления, редактирования и удаления записей. Поддерживает два типа пользователей: LDAP и локальные.
 
-## Recommended IDE Setup
+## Технологии
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+- **Vue 3** - фреймворк для создания пользовательских интерфейсов
+- **TypeScript** - типизированный JavaScript
+- **Vite** - инструмент сборки
+- **Element Plus** - UI библиотека компонентов
+- **Pinia** - управление состоянием
+- **ESLint** - линтер кода
 
-## Type Support for `.vue` Imports in TS
+## Функциональность
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
+- Добавление новых пользователей
+- Редактирование данных пользователей
+- Удаление пользователей с подтверждением
+- Валидация обязательных полей
+- Сохранение данных в localStorage
+- Поддержка меток (тегов) для пользователей
+- Различные типы пользователей (LDAP/Локальная)
 
-## Customize configuration
+## Установка и запуск
 
-See [Vite Configuration Reference](https://vite.dev/config/).
-
-## Project Setup
-
+### Установка зависимостей
 ```sh
 npm install
 ```
 
-### Compile and Hot-Reload for Development
-
+### Запуск в режиме разработки
 ```sh
 npm run dev
 ```
 
-### Type-Check, Compile and Minify for Production
-
+### Сборка для продакшена
 ```sh
 npm run build
 ```

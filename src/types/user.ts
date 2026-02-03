@@ -16,3 +16,15 @@ export interface UserForm {
   login: string;
   password: string;
 }
+
+export interface UserRow {
+  id?: number;
+  label: string;
+  type: 'LDAP' | 'Локальная';
+  login: string | null;
+  password: string | null;
+  errors: {
+    login: boolean;
+    password: boolean;
+  };
+}

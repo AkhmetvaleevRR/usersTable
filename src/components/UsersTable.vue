@@ -2,7 +2,10 @@
   <div class="user-table-container">
     <h1>Управление учетными записями</h1>
     
-    <el-text class="help-text" type="info">
+    <el-text
+      class="help-text"
+      type="info"
+    >
       <el-icon><QuestionFilled /></el-icon>
       Для указания нескольких меток для одной пары логин/пароль используйте разделитель ;
     </el-text>
@@ -14,7 +17,6 @@
       cell-class-name="table-cell"
     >
       <UserRow />
-      
     </el-table>
 
     <div class="actions">

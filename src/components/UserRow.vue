@@ -1,5 +1,8 @@
 <template>
-  <el-table-column label="Метка" min-width="200">
+  <el-table-column
+    label="Метка"
+    min-width="200"
+  >
     <template #default="scope">
       <el-input
         v-model="scope.row.label"
@@ -10,45 +13,61 @@
     </template>
   </el-table-column>
 
-  <el-table-column label="Тип записи" min-width="150">
+  <el-table-column
+    label="Тип записи"
+    min-width="150"
+  >
     <template #default="scope">
       <el-select
         v-model="scope.row.type"
         placeholder="Выберите тип"
         @change="handleTypeChange(scope.row)"
       >
-        <el-option label="LDAP" value="LDAP" />
-        <el-option label="Локальная" value="Локальная" />
+        <el-option
+          label="LDAP"
+          value="LDAP"
+        />
+        <el-option
+          label="Локальная"
+          value="Локальная"
+        />
       </el-select>
     </template>
   </el-table-column>
 
-  <el-table-column label="Логин" min-width="200">
+  <el-table-column
+    label="Логин"
+    min-width="200"
+  >
     <template #default="scope">
       <el-tooltip
         :visible="scope.row.errors.login"
         content="Обязательное поле"
         placement="bottom"
-        effect="customized">
+        effect="customized"
+      >
         <el-input
           v-model="scope.row.login"
           placeholder="Введите логин"
           :maxlength="100"
           :class="{ 'is-error': scope.row.errors.login }"
           @blur="validateAndSave(scope.row)"
-        >
-        </el-input>
+        />
       </el-tooltip>
     </template>
   </el-table-column>
 
-  <el-table-column label="Пароль" min-width="200">
+  <el-table-column
+    label="Пароль"
+    min-width="200"
+  >
     <template #default="scope">      
       <el-tooltip
         :visible="scope.row.errors.password"
         content="Обязательное поле"
         placement="bottom"
-        effect="customized">
+        effect="customized"
+      >
         <el-input
           v-if="scope.row.type === 'Локальная'"
           v-model="scope.row.password"
@@ -63,39 +82,56 @@
     </template>
   </el-table-column>
 
-  <el-table-column label="Действия" min-width="100">
+  <el-table-column
+    min-width="100"
+    align="center"
+  >
     <template #default="scope">
-      <el-button
-        type="danger"
-        icon="Delete"
-        @click="handleDelete(scope.row.id)"
-      />
+      <el-popconfirm
+        confirm-button-text="Да"
+        cancel-button-text="Нет"
+        title="Подтвердите действие"
+        width="200"
+        @confirm="handleDelete(scope.row.id)"
+      >
+        <template #reference>
+          <el-button
+            type="danger"
+            icon="Delete"
+          />
+        </template>
+      </el-popconfirm>
     </template>
   </el-table-column>
 </template>
 
 <script setup lang="ts">
 import { useUsersStore } from '@/stores/store';
+import type { UserRow } from '@/types/user';
 
 const usersStore = useUsersStore();
 
-const validate = (row: any): boolean => {
+const validate = (row: UserRow): boolean => {
+  const isLoginEmpty = !row.login || !row.login.trim();
+  const isPasswordEmpty = !row.password || !row.password.trim();
+  const isPasswordRequired = row.type === 'Локальная';
+
   const newErrors = {
-    login: row.login?!row.login.trim():!row.login,
-    password: row.type === 'Локальная' && (row.password?!row.password.trim():!row.password)
+    login: isLoginEmpty,
+    password: isPasswordRequired && isPasswordEmpty
   };
 
   row.errors = newErrors;
   return !newErrors.login && !newErrors.password;
 };
 
-const save = (row: any) => {
+const save = (row: UserRow) => {
   if (!validate(row)) return;
 
   const userData = {
     label: usersStore.parseLabels(row.label),
     type: row.type,
-    login: row.login.trim(),
+    login: row.login!.trim(),
     password: row.type === 'Локальная' ? row.password : null
   };
 
@@ -106,16 +142,16 @@ const save = (row: any) => {
   }
 };
 
-const handleLabelBlur = (row: any) => {
+const handleLabelBlur = (row: UserRow) => {
   save(row);
 };
 
-const handleTypeChange = (row: any) => {
+const handleTypeChange = (row: UserRow) => {
   validate(row);
   save(row);
 };
 
-const validateAndSave = (row: any) => {
+const validateAndSave = (row: UserRow) => {
   if (validate(row)) {
     save(row);
   }
